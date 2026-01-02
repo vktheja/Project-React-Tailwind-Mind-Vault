@@ -5,6 +5,9 @@ export default {
       fontFamily: {
         sans: ["Inter", "sans-serif"],
       },
+      screens: {
+        mds: "576px",
+      },
     },
   },
   plugins: [],
