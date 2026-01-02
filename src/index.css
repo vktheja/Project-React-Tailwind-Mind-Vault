@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@config "../tailwind.config.mjs";
+
+@layer base {
+}
+
+@layer components {
+}
+
+@layer utilities {
+}
