@@ -8,10 +8,10 @@ const Edit = (props) => {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class={className}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
     >
       <path d="M13 21h8" />
       <path d="m15 5 4 4" />
