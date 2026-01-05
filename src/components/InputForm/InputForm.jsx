@@ -1,8 +1,28 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 const InputForm = (props) => {
   const { onAddNotes } = props;
+  const [textBoxError, setTextBoxError] = useState(false);
+  const [textAreaError, setTextAreaError] = useState(false);
   const titleRef = useRef();
   const notesRef = useRef();
+
+  const errorClass = "placeholder:text-red-400 border-red-500";
+  const inputClass = "placeholder:text-gray-400 border-gray-300";
+  const btnStyles =
+    textBoxError || textAreaError
+      ? "bg-gray-200 text-slate-500 border border-slate-300"
+      : "bg-blue-500 text-white cursor-pointer hover:bg-blue-600 transition-colors duration-200";
+
+  const inputBaseClass =
+    "text-md p-2 text-slate-600 border focus:outline-none focus:ring-0 rounded-md";
+
+  const titleInputClass = `${inputBaseClass} ${
+    textBoxError ? errorClass : inputClass
+  }`;
+
+  const textAreaClass = `${inputBaseClass} ${
+    textAreaError ? errorClass : inputClass
+  } h-24 md:h-40 resize-none`;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -11,6 +31,18 @@ const InputForm = (props) => {
 
     const title = titleRef.current.value.trim();
     const message = notesRef.current.value.trim();
+
+    if (!message || !title) {
+      if (!title) {
+        setTextBoxError(true);
+      }
+
+      if (!message) {
+        setTextAreaError(true);
+      }
+
+      return;
+    }
 
     const id = fulldate.getTime();
 
@@ -36,6 +68,8 @@ const InputForm = (props) => {
 
     titleRef.current.value = "";
     notesRef.current.value = "";
+    setTextBoxError(false);
+    setTextAreaError(false);
   };
   return (
     <>
@@ -48,21 +82,31 @@ const InputForm = (props) => {
             name="notes-title"
             type="text"
             placeholder="Enter note title..."
-            className="text-md text-slate-600 p-2 placeholder:text-gray-400 border border-gray-300 focus:outline-none focus:ring-0 rounded-md"
+            className={titleInputClass}
             autoComplete="off"
             ref={titleRef}
+            onChange={(e) => {
+              if (textBoxError && e.target.value.trim().length > 0)
+                setTextBoxError(false);
+            }}
           />
+
           <textarea
             name="notes-data"
             id="notes-data"
-            className="text-md p-2 text-slate-600 placeholder:text-gray-400 border border-gray-300 focus:outline-none focus:ring-0 rounded-md h-24 md:h-40 resize-none"
+            className={textAreaClass}
             placeholder="Write your thoughts here..."
             rows={3}
             ref={notesRef}
+            onChange={(e) => {
+              if (textAreaError && e.target.value.trim().length > 0)
+                setTextAreaError(false);
+            }}
           ></textarea>
           <button
             type="submit"
-            className="ml-auto bg-blue-500 text-sm text-white px-4 py-2 rounded-lg cursor-pointer hover:bg-blue-600 transition-colors duration-200"
+            className={`ml-auto text-sm px-4 py-2 rounded-lg ${btnStyles}`}
+            disabled={textAreaError || textBoxError}
           >
             Add Note
           </button>
