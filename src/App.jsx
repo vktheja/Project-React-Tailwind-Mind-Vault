@@ -1,6 +1,7 @@
 import { useState } from "react";
 import NavBar from "./components/NavBar/NavBar";
 import InputForm from "./components/InputForm/InputForm";
+import SearchAndSortBar from "./SearchAndSortBar/SearchAndSortBar";
 
 const App = () => {
   const [notes, setNotes] = useState([]);
@@ -13,6 +14,7 @@ const App = () => {
     <>
       <NavBar />
       <InputForm onAddNotes={handleAddNotes} />
+      <SearchAndSortBar />
     </>
   );
 };
