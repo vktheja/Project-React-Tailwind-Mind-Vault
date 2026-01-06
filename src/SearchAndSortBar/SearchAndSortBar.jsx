@@ -1,6 +1,21 @@
+import { useState } from "react";
 import Search from "../shared/icons/Search";
 
-const SearchAndSortBar = () => {
+const SearchAndSortBar = (props) => {
+  const { onSearch, onSort } = props;
+
+  const [seachTerm, setSearchTerm] = useState("");
+  const [sortBy, setSortBy] = useState("latest");
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+    onSearch(e.target.value);
+  };
+
+  const handleSort = (e) => {
+    setSortBy(e.target.value);
+    onSort(e.target.value);
+  };
   return (
     <div
       className="
@@ -23,6 +38,8 @@ const SearchAndSortBar = () => {
           rounded-lg
         "
           placeholder="Search notes..."
+          value={seachTerm}
+          onChange={handleSearch}
         />
       </div>
 
@@ -54,6 +71,8 @@ const SearchAndSortBar = () => {
             tracking-wider md:tracking-widest
             transition-colors duration-200
           "
+          value={sortBy}
+          onChange={handleSort}
         >
           <option value="latest">Latest</option>
           <option value="oldest">Oldest</option>
