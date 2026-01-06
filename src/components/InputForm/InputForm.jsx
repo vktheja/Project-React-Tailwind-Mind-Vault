@@ -22,7 +22,7 @@ const InputForm = (props) => {
 
   const textAreaClass = `${inputBaseClass} ${
     textAreaError ? errorClass : inputClass
-  } h-24 md:h-40 resize-none`;
+  } h-24 mds:h-40 resize-none`;
 
   const handleSubmit = (e) => {
     e.preventDefault();
