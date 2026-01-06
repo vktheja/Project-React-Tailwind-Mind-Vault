@@ -7,10 +7,10 @@ import NoNotes from "./components/NoNotes/NoNotes";
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortBy, SetSortBy] = useState("latest");
+  const [sortBy, setSortBy] = useState("latest");
 
   const handleAddNotes = (notesData) => {
-    setNotes([...notes, notesData]);
+    setNotes((prev) => [...prev, notesData]);
   };
 
   const handleSearch = (value) => {
@@ -18,7 +18,7 @@ const App = () => {
   };
 
   const handleSort = (value) => {
-    SetSortBy(value);
+    setSortBy(value);
   };
 
   return (
@@ -31,7 +31,7 @@ const App = () => {
         sortBy={sortBy}
         searchTerm={searchTerm}
       />
-      <NoNotes />
+      {notes.length <= 0 && <NoNotes />}
     </>
   );
 };
