@@ -73,7 +73,7 @@ const InputForm = (props) => {
   };
   return (
     <>
-      <div className="max-w-3xl bg-white mx-4 md:mx-auto my-6 rounded-md shadow-lg shadow-black/10 border border-gray-600/20">
+      <div className="max-w-3xl bg-white mx-4 mds:mx-auto my-6 rounded-md shadow-lg shadow-black/10 border border-gray-600/20">
         <h2 className="font-medium text-lg p-2 bg-gray-100 rounded-t-md border-b border-gray-300/70">
           Add New Note
         </h2>

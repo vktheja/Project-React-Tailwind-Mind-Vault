@@ -26,7 +26,7 @@ const SearchAndSortBar = (props) => {
           type="text"
           className="
           w-full p-2 pl-8 text-slate-600
-          placeholder:text-gray-400
+          placeholder:text-gray-400 placeholder:tracking-wider md:placeholder:tracking-widest
           focus:outline-none focus:ring-0
           focus:border focus:border-slate-400
           rounded-lg
