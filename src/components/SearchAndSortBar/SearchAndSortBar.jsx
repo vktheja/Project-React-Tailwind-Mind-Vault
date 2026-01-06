@@ -1,4 +1,4 @@
-import Search from "../shared/icons/Search";
+import Search from "../../shared/icons/Search";
 
 const SearchAndSortBar = (props) => {
   const { onSearch, onSort, searchTerm, sortBy } = props;

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import NavBar from "./components/NavBar/NavBar";
 import InputForm from "./components/InputForm/InputForm";
-import SearchAndSortBar from "./SearchAndSortBar/SearchAndSortBar";
+import SearchAndSortBar from "./components/SearchAndSortBar/SearchAndSortBar";
+import NoNotes from "./components/NoNotes/NoNotes";
 
 const App = () => {
   const [notes, setNotes] = useState([]);
@@ -30,6 +31,7 @@ const App = () => {
         sortBy={sortBy}
         searchTerm={searchTerm}
       />
+      <NoNotes />
     </>
   );
 };
