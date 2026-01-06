@@ -1,19 +1,13 @@
-import { useState } from "react";
 import Search from "../shared/icons/Search";
 
 const SearchAndSortBar = (props) => {
-  const { onSearch, onSort } = props;
-
-  const [seachTerm, setSearchTerm] = useState("");
-  const [sortBy, setSortBy] = useState("latest");
+  const { onSearch, onSort, searchTerm, sortBy } = props;
 
   const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
     onSearch(e.target.value);
   };
 
   const handleSort = (e) => {
-    setSortBy(e.target.value);
     onSort(e.target.value);
   };
   return (
@@ -38,7 +32,7 @@ const SearchAndSortBar = (props) => {
           rounded-lg
         "
           placeholder="Search notes..."
-          value={seachTerm}
+          value={searchTerm}
           onChange={handleSearch}
         />
       </div>

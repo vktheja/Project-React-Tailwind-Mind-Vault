@@ -24,7 +24,12 @@ const App = () => {
     <>
       <NavBar />
       <InputForm onAddNotes={handleAddNotes} />
-      <SearchAndSortBar onSearch={handleSearch} onSort={handleSort} />
+      <SearchAndSortBar
+        onSearch={handleSearch}
+        onSort={handleSort}
+        sortBy={sortBy}
+        searchTerm={searchTerm}
+      />
     </>
   );
 };
