@@ -1,3 +1,5 @@
+import Search from "../shared/icons/Search";
+
 const SearchAndSortBar = () => {
   return (
     <div
@@ -9,18 +11,20 @@ const SearchAndSortBar = () => {
         border border-gray-600/20 p-2
       "
     >
-      <input
-        type="text"
-        className="
-          w-full mds:flex-1
-          p-2 text-slate-600
+      <div className="relative flex mds:flex-1 group">
+        <Search className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-slate-500 w-5 pointer-events-none" />
+        <input
+          type="text"
+          className="
+          w-full p-2 pl-8 text-slate-600
           placeholder:text-gray-400
           focus:outline-none focus:ring-0
           focus:border focus:border-slate-400
           rounded-lg
         "
-        placeholder="Search notes..."
-      />
+          placeholder="Search notes..."
+        />
+      </div>
 
       <div
         className="
@@ -31,7 +35,7 @@ const SearchAndSortBar = () => {
         <label
           htmlFor="sortNotes"
           className="
-            text-slate-500 text-md
+            text-slate-500 text-base
             tracking-wider md:tracking-widest
           "
         >
