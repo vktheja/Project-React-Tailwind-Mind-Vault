@@ -1,3 +1,4 @@
+import SimpleBar from "simplebar-react";
 import Date from "../../shared/icons/Date";
 import Edit from "../../shared/icons/Edit";
 import Delete from "../../shared/icons/Delete";
@@ -9,12 +10,16 @@ const Note = (props) => {
       <div className="border-b py-2 border-gray-200 text-slate-500 font-semibold text-base mds:text-sm">
         First Note
       </div>
-      <div className="py-2 h-32 overflow-y-auto text-base mds:text-sm">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Praesentium
-        soluta cumque nihil iure quibusdam, dolores nostrum asperiores deserunt
-        omnis magni sapiente ullam doloribus quis. Similique pariatur tempora
-        ipsum reiciendis nostrum!
-      </div>
+      <SimpleBar className="h-32">
+        <div className="py-2 mr-2 text-base mds:text-sm">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Praesentium
+          soluta cumque nihil iure quibusdam, dolores nostrum asperiores de
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora
+          asperiores similique non repellendus dolor animi laboriosam eos quam
+          qui eligendi deserunt, repudiandae eveniet doloremque eius impedit
+          laudantium tenetur harum eum?
+        </div>
+      </SimpleBar>
       <div className="border-b border-gray-200 mt-2 "></div>
       <div className="flex items-center justify-between py-2">
         <div className="flex items-center space-x-1 text-sm text-gray-600">
