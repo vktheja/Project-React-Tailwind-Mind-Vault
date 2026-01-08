@@ -5,7 +5,7 @@ import Delete from "../../shared/icons/Delete";
 const Note = (props) => {
   //   const { note } = props;
   return (
-    <div className="flex flex-col bg-white px-4 rounded-md shadow-lg shadow-black/10 border border-gray-600/20">
+    <div className="group flex flex-col bg-white px-4 rounded-md shadow-lg shadow-black/10 border border-gray-600/20 transition-all duration-200 ease-out hover:scale-[1.02] hover:shadow-xl">
       <div className="border-b py-2 border-gray-200 text-slate-500 font-semibold text-base mds:text-sm">
         First Note
       </div>
@@ -21,7 +21,7 @@ const Note = (props) => {
           <Date className="w-4 mds:w-3" />
           <p>January 08, 2026</p>
         </div>
-        <div className="flex gap-6 items-center">
+        <div className="flex gap-6 items-center opacity-70 group-hover:opacity-100 transition-opacity duration-200">
           <button className="flex items-center space-x-1 text-sm mds:text-xs text-gray-600 hover:text-blue-500 cursor-pointer">
             <Edit className="w-4 mds:w-3 transition-colors duration-200" />
             <span>Edit</span>
