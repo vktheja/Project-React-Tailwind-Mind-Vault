@@ -4,7 +4,7 @@ import Sparkles from "../../shared/icons/Sparkles";
 const NavBar = () => {
   return (
     <>
-      <header className="bg-blue-900">
+      <header className="sticky top-0 z-50 bg-blue-900 shadow-md">
         <div className=" container flex justify-center mds:justify-between px-10 py-5">
           <div className="flex items-center space-x-2">
             <Brain className="text-white w-8 h-8" />
