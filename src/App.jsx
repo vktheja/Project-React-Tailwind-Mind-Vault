@@ -2,6 +2,7 @@ import { useState } from "react";
 import NavBar from "./components/NavBar/NavBar";
 import InputForm from "./components/InputForm/InputForm";
 import SearchAndSortBar from "./components/SearchAndSortBar/SearchAndSortBar";
+import Notes from "./components/Notes/Notes";
 import NoNotes from "./components/NoNotes/NoNotes";
 
 const App = () => {
@@ -31,7 +32,8 @@ const App = () => {
         sortBy={sortBy}
         searchTerm={searchTerm}
       />
-      {notes.length <= 0 && <NoNotes />}
+      <Notes notes={notes} />
+      {/* {notes.length <= 0 && <NoNotes />} */}
     </>
   );
 };
