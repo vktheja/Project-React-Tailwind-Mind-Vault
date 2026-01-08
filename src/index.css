@@ -4,6 +4,23 @@
 @layer base {
   body {
     @apply bg-gray-100;
+
+    /* Vertical scrollbar track (the rail) */
+    .simplebar-track.simplebar-vertical {
+      width: 8px !important;
+    }
+
+    /* Scrollbar thumb (the draggable part) */
+    .simplebar-scrollbar::before {
+      background-color: #94a3b8 !important; /* slate-400 */
+      opacity: 0.5 !important;
+      border-radius: 9999px;
+    }
+
+    /* Thumb when scrolling or hovering */
+    .simplebar-scrollbar.simplebar-visible::before {
+      opacity: 0.8 !important;
+    }
   }
 }
 

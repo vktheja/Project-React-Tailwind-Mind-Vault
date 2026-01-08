@@ -22,7 +22,7 @@ const Note = (props) => {
       </SimpleBar>
       <div className="border-b border-gray-200 mt-2 "></div>
       <div className="flex items-center justify-between py-2">
-        <div className="flex items-center space-x-1 text-sm text-gray-600">
+        <div className="flex items-center space-x-1 text-sm mds:text-xs text-gray-600">
           <Date className="w-4 mds:w-3" />
           <p>January 08, 2026</p>
         </div>
