@@ -22,6 +22,9 @@ const App = () => {
     setSortBy(value);
   };
 
+  const displayNotes =
+    notes.length <= 0 ? <NoNotes /> : <Notes notes={notes} />;
+
   return (
     <>
       <NavBar />
@@ -32,8 +35,7 @@ const App = () => {
         sortBy={sortBy}
         searchTerm={searchTerm}
       />
-      <Notes notes={notes} />
-      {/* {notes.length <= 0 && <NoNotes />} */}
+      {displayNotes}
     </>
   );
 };
