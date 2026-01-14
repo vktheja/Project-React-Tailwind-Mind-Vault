@@ -4,7 +4,11 @@ import Edit from "../../shared/icons/Edit";
 import Delete from "../../shared/icons/Delete";
 
 const Note = (props) => {
-  const { date, title, message } = props;
+  const { date, title, message, id, onDelete } = props;
+
+  const handleDelete = (id) => {
+    onDelete(id);
+  };
   return (
     <div className="group flex flex-col bg-white px-4 rounded-md shadow-lg shadow-black/10 border border-gray-600/20 transition-all duration-200 ease-out hover:scale-[1.02] hover:shadow-xl">
       <div className="border-b py-2 border-gray-200 text-slate-500 font-semibold text-base mds:text-sm">
@@ -24,7 +28,11 @@ const Note = (props) => {
             <Edit className="w-4 mds:w-3 transition-colors duration-200" />
             <span>Edit</span>
           </button>
-          <button className="flex items-center space-x-1 text-sm mds:text-xs text-gray-600 hover:text-red-500 cursor-pointer">
+          <button
+            className="flex items-center space-x-1 text-sm mds:text-xs text-gray-600 hover:text-red-500 cursor-pointer"
+            type="button"
+            onClick={() => handleDelete(id)}
+          >
             <Delete className="w-4 mds:w-3 transition-colors duration-200" />
             <span>Delete</span>
           </button>

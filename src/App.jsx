@@ -6,12 +6,18 @@ import Notes from "./components/Notes/Notes";
 import NoNotes from "./components/NoNotes/NoNotes";
 
 const App = () => {
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState(() => {
+    let sessionNotes = sessionStorage.getItem("notes");
+    return sessionNotes ? JSON.parse(sessionNotes) : [];
+  });
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("latest");
 
   const handleAddNotes = (notesData) => {
-    setNotes((prev) => [...prev, notesData]);
+    setNotes((prev) => {
+      sessionStorage.setItem("notes", JSON.stringify([...prev, notesData]));
+      return [...prev, notesData];
+    });
   };
 
   const handleSearch = (value) => {
@@ -22,8 +28,18 @@ const App = () => {
     setSortBy(value);
   };
 
+  const handleDelete = (id) => {
+    const updatedNotesList = notes.filter((note) => id !== note.id);
+    sessionStorage.setItem("notes", JSON.stringify(updatedNotesList));
+    setNotes(updatedNotesList);
+  };
+
   const displayNotes =
-    notes.length <= 0 ? <NoNotes /> : <Notes notes={notes} />;
+    notes.length <= 0 ? (
+      <NoNotes />
+    ) : (
+      <Notes notes={notes} onDelete={handleDelete} />
+    );
 
   return (
     <>
