@@ -4,52 +4,45 @@ const InputForm = (props) => {
   const [textBoxError, setTextBoxError] = useState(false);
   const [textAreaError, setTextAreaError] = useState(false);
   const [clear, setClear] = useState(false);
-  const [titleHasInput, setTitleHasInput] = useState(false);
-  const [messageHasInput, setMessageHasInput] = useState(false);
+
   const titleRef = useRef();
   const notesRef = useRef();
 
   const emptyForm = () => {
     titleRef.current.value = "";
     notesRef.current.value = "";
-    setTitleHasInput(false);
-    setMessageHasInput(false);
+    setClear(false);
   };
 
   useEffect(() => {
     if (onEdit) {
       titleRef.current.value = editNote.title;
       notesRef.current.value = editNote.message;
-      setTitleHasInput(true);
-      setMessageHasInput(true);
+      setClear(true);
     } else {
       emptyForm();
     }
   }, [onEdit]);
 
-  useEffect(() => {
-    if (messageHasInput || titleHasInput) {
-      setClear(true);
-    } else {
-      setClear(false);
-    }
-  }, [titleHasInput, messageHasInput]);
-
   const handleTitle = (e) => {
     if (e.target.value.trim().length > 0) {
-      setTitleHasInput(true);
       if (textBoxError) setTextBoxError(false);
+      setClear(true);
     } else {
-      if (!onEdit) setTitleHasInput(false);
+      if (!onEdit) {
+        if (notesRef.current?.value.trim().length <= 0) setClear(false);
+      }
     }
   };
 
   const handleMessage = (e) => {
     if (e.target.value.trim().length > 0) {
-      setMessageHasInput(true);
       if (textAreaError) setTextAreaError(false);
+      setClear(true);
     } else {
-      if (!onEdit) setMessageHasInput(false);
+      if (!onEdit) {
+        if (titleRef.current?.value.trim().length <= 0) setClear(false);
+      }
     }
   };
 
@@ -60,6 +53,8 @@ const InputForm = (props) => {
       emptyForm();
     }
   };
+
+  console.log("z", titleRef.current?.value);
 
   const errorClass = "placeholder:text-red-400 border-red-500";
   const inputClass = "placeholder:text-gray-400 border-gray-300";
