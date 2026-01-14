@@ -1,10 +1,65 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 const InputForm = (props) => {
-  const { onAddNotes } = props;
+  const { onAddNotes, onEdit, onCancelEdit, editNote } = props;
   const [textBoxError, setTextBoxError] = useState(false);
   const [textAreaError, setTextAreaError] = useState(false);
+  const [clear, setClear] = useState(false);
+  const [titleHasInput, setTitleHasInput] = useState(false);
+  const [messageHasInput, setMessageHasInput] = useState(false);
   const titleRef = useRef();
   const notesRef = useRef();
+
+  const emptyForm = () => {
+    titleRef.current.value = "";
+    notesRef.current.value = "";
+    setTitleHasInput(false);
+    setMessageHasInput(false);
+  };
+
+  useEffect(() => {
+    if (onEdit) {
+      titleRef.current.value = editNote.title;
+      notesRef.current.value = editNote.message;
+      setTitleHasInput(true);
+      setMessageHasInput(true);
+    } else {
+      emptyForm();
+    }
+  }, [onEdit]);
+
+  useEffect(() => {
+    if (messageHasInput || titleHasInput) {
+      setClear(true);
+    } else {
+      setClear(false);
+    }
+  }, [titleHasInput, messageHasInput]);
+
+  const handleTitle = (e) => {
+    if (e.target.value.trim().length > 0) {
+      setTitleHasInput(true);
+      if (textBoxError) setTextBoxError(false);
+    } else {
+      if (!onEdit) setTitleHasInput(false);
+    }
+  };
+
+  const handleMessage = (e) => {
+    if (e.target.value.trim().length > 0) {
+      setMessageHasInput(true);
+      if (textAreaError) setTextAreaError(false);
+    } else {
+      if (!onEdit) setMessageHasInput(false);
+    }
+  };
+
+  const handleClear = () => {
+    if (onEdit) {
+      onCancelEdit();
+    } else {
+      emptyForm();
+    }
+  };
 
   const errorClass = "placeholder:text-red-400 border-red-500";
   const inputClass = "placeholder:text-gray-400 border-gray-300";
@@ -75,7 +130,7 @@ const InputForm = (props) => {
     <>
       <div className="max-w-3xl bg-white mx-4 mds:mx-auto my-6 rounded-md shadow-lg shadow-black/10 border border-gray-600/20">
         <h2 className="font-medium text-lg p-2 bg-gray-100 rounded-t-md border-b border-gray-300/70">
-          Add New Note
+          {onEdit ? "Edit Note" : "Add New Note"}
         </h2>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-2 p-4">
           <input
@@ -85,10 +140,7 @@ const InputForm = (props) => {
             className={titleInputClass}
             autoComplete="off"
             ref={titleRef}
-            onChange={(e) => {
-              if (textBoxError && e.target.value.trim().length > 0)
-                setTextBoxError(false);
-            }}
+            onChange={(e) => handleTitle(e)}
           />
 
           <textarea
@@ -98,18 +150,30 @@ const InputForm = (props) => {
             placeholder="Write your thoughts here..."
             rows={3}
             ref={notesRef}
-            onChange={(e) => {
-              if (textAreaError && e.target.value.trim().length > 0)
-                setTextAreaError(false);
-            }}
+            onChange={(e) => handleMessage(e)}
           ></textarea>
-          <button
-            type="submit"
-            className={`ml-auto text-sm px-4 py-2 rounded-lg ${btnStyles}`}
-            disabled={textAreaError || textBoxError}
-          >
-            Add Note
-          </button>
+          <div className="flex ml-auto gap-2">
+            {clear && (
+              <button
+                type="button"
+                className={`min-w-20 text-sm px-4 py-2 rounded-lg ${
+                  onEdit ? "tracking-normal" : "tracking-widest"
+                } ${btnStyles}`}
+                onClick={handleClear}
+              >
+                {onEdit ? "Cancel" : "Clear"}
+              </button>
+            )}
+            <button
+              type="submit"
+              className={`min-w-20 text-sm px-4 py-2 rounded-lg ${
+                onEdit ? "tracking-normal" : "tracking-widest"
+              } ${btnStyles}`}
+              disabled={textAreaError || textBoxError}
+            >
+              {onEdit ? "Update" : "Add"}
+            </button>
+          </div>
         </form>
       </div>
     </>

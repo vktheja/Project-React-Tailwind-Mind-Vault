@@ -12,6 +12,8 @@ const App = () => {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("latest");
+  const [edit, setEdit] = useState(false);
+  const [editNote, setEditNote] = useState({});
 
   const handleAddNotes = (notesData) => {
     setNotes((prev) => {
@@ -34,17 +36,34 @@ const App = () => {
     setNotes(updatedNotesList);
   };
 
+  const handleEdit = (id) => {
+    const editNote = notes.find((note) => id === note.id);
+    if (!editNote) return;
+    setEdit(true);
+    setEditNote(editNote);
+  };
+
+  const handleCancelEdit = () => {
+    setEditNote({});
+    setEdit(false);
+  };
+
   const displayNotes =
     notes.length <= 0 ? (
       <NoNotes />
     ) : (
-      <Notes notes={notes} onDelete={handleDelete} />
+      <Notes notes={notes} onDelete={handleDelete} onEdit={handleEdit} />
     );
 
   return (
     <>
       <NavBar />
-      <InputForm onAddNotes={handleAddNotes} />
+      <InputForm
+        onAddNotes={handleAddNotes}
+        onEdit={edit}
+        editNote={editNote}
+        onCancelEdit={handleCancelEdit}
+      />
       <SearchAndSortBar
         onSearch={handleSearch}
         onSort={handleSort}
