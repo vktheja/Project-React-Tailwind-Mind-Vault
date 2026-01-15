@@ -153,7 +153,7 @@ const InputForm = (props) => {
                 type="button"
                 className={`min-w-20 text-sm px-4 py-2 rounded-lg ${
                   onEdit ? "tracking-normal" : "tracking-widest"
-                } ${btnStyles}`}
+                } bg-blue-500 text-white cursor-pointer hover:bg-blue-600 transition-colors duration-200`}
                 onClick={handleClear}
               >
                 {onEdit ? "Cancel" : "Clear"}
