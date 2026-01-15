@@ -16,10 +16,16 @@ const App = () => {
   const [editNote, setEditNote] = useState({});
 
   const handleAddNotes = (notesData) => {
-    setNotes((prev) => {
-      sessionStorage.setItem("notes", JSON.stringify([...prev, notesData]));
-      return [...prev, notesData];
-    });
+    if (edit) {
+      setEdit(false);
+      setEditNote({});
+      console.log(notesData);
+    } else {
+      setNotes((prev) => {
+        sessionStorage.setItem("notes", JSON.stringify([...prev, notesData]));
+        return [...prev, notesData];
+      });
+    }
   };
 
   const handleSearch = (value) => {

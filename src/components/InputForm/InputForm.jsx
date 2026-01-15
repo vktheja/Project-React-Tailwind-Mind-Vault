@@ -4,6 +4,7 @@ const InputForm = (props) => {
   const [textBoxError, setTextBoxError] = useState(false);
   const [textAreaError, setTextAreaError] = useState(false);
   const [clear, setClear] = useState(false);
+  const [disableUpdate, setDisableUpdate] = useState(true);
 
   const titleRef = useRef();
   const notesRef = useRef();
@@ -27,6 +28,16 @@ const InputForm = (props) => {
   const handleTitle = (e) => {
     if (e.target.value.trim().length > 0) {
       if (textBoxError) setTextBoxError(false);
+
+      if (
+        e.target.value.trim() === editNote.title &&
+        notesRef.current.value.trim() === editNote.message
+      ) {
+        setDisableUpdate(true);
+      } else {
+        setDisableUpdate(false);
+      }
+
       setClear(true);
     } else {
       if (!onEdit) {
@@ -38,6 +49,16 @@ const InputForm = (props) => {
   const handleMessage = (e) => {
     if (e.target.value.trim().length > 0) {
       if (textAreaError) setTextAreaError(false);
+
+      if (
+        e.target.value.trim() === editNote.message &&
+        titleRef.current.value.trim() === editNote.title
+      ) {
+        setDisableUpdate(true);
+      } else {
+        setDisableUpdate(false);
+      }
+
       setClear(true);
     } else {
       if (!onEdit) {
@@ -54,12 +75,10 @@ const InputForm = (props) => {
     }
   };
 
-  console.log("z", titleRef.current?.value);
-
   const errorClass = "placeholder:text-red-400 border-red-500";
   const inputClass = "placeholder:text-gray-400 border-gray-300";
   const btnStyles =
-    textBoxError || textAreaError
+    textBoxError || textAreaError || (onEdit && disableUpdate)
       ? "bg-gray-200 text-slate-500 border border-slate-300"
       : "bg-blue-500 text-white cursor-pointer hover:bg-blue-600 transition-colors duration-200";
 
@@ -108,10 +127,11 @@ const InputForm = (props) => {
     });
 
     const note = {
-      id,
+      id: onEdit ? editNote.id : id,
       title,
       message,
-      date: formattedDate,
+      date: onEdit ? editNote.date : formattedDate,
+      updated: onEdit ? formattedDate : false,
     };
 
     onAddNotes(note);
@@ -164,7 +184,9 @@ const InputForm = (props) => {
               className={`min-w-20 text-sm px-4 py-2 rounded-lg ${
                 onEdit ? "tracking-normal" : "tracking-widest"
               } ${btnStyles}`}
-              disabled={textAreaError || textBoxError}
+              disabled={
+                textAreaError || textBoxError || (onEdit && disableUpdate)
+              }
             >
               {onEdit ? "Update" : "Add"}
             </button>
