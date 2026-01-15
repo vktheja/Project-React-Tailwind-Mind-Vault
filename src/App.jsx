@@ -17,9 +17,18 @@ const App = () => {
 
   const handleAddNotes = (notesData) => {
     if (edit) {
+      const updatedNotes = notes.map((note) => {
+        if (notesData.id === note.id) {
+          note = { ...notesData };
+        }
+        return note;
+      });
+
+      sessionStorage.setItem("notes", JSON.stringify(updatedNotes));
+      setNotes(updatedNotes);
+
       setEdit(false);
       setEditNote({});
-      console.log(notesData);
     } else {
       setNotes((prev) => {
         sessionStorage.setItem("notes", JSON.stringify([...prev, notesData]));
