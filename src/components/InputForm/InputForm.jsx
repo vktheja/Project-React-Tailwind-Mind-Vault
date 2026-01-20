@@ -126,12 +126,18 @@ const InputForm = (props) => {
       year: "numeric",
     });
 
+    const editedDate = fulldate.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+
     const note = {
       id: onEdit ? editNote.id : id,
       title,
       message,
       date: onEdit ? editNote.date : formattedDate,
-      updated: onEdit ? formattedDate : false,
+      updated: onEdit ? editedDate : false,
     };
 
     onAddNotes(note);

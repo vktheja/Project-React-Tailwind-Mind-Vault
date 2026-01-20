@@ -4,7 +4,7 @@ import Edit from "../../shared/icons/Edit";
 import Delete from "../../shared/icons/Delete";
 
 const Note = (props) => {
-  const { date, title, message, id, onDelete, onEdit } = props;
+  const { date, title, message, id, onDelete, onEdit, updated } = props;
 
   const handleDelete = (id) => {
     onDelete(id);
@@ -16,8 +16,25 @@ const Note = (props) => {
 
   return (
     <div className="group flex flex-col bg-white px-4 rounded-md shadow-lg shadow-black/10 border border-gray-600/20 transition-all duration-200 ease-out hover:scale-[1.02] hover:shadow-xl">
-      <div className="border-b py-2 border-gray-200 text-slate-500 font-semibold text-base mds:text-sm">
-        {title}
+      <div className="flex justify-between items-center border-b py-2 border-gray-200 text-slate-500 font-semibold text-base mds:text-sm min-h-12">
+        <span className="truncate max-w-[65%]">{title}</span>
+
+        <div className="flex justify-end">
+          <div
+            className={`text-sm mds:text-xs font-bold border rounded-md py-1 px-2
+        transition-all duration-200 ease-out min-w-25 text-center
+        ${
+          updated.length > 0
+            ? "text-gray-600 border-blue-300 bg-blue-300 opacity-100"
+            : "invisible opacity-0"
+        }`}
+          >
+            <span className="block group-hover:hidden tracking-widest">
+              Edited
+            </span>
+            <span className="hidden group-hover:block">{updated}</span>
+          </div>
+        </div>
       </div>
       <SimpleBar className="h-32">
         <div className="py-2 mr-2 text-base mds:text-sm">{message}</div>
