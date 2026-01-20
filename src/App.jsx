@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import _ from "lodash";
 import NavBar from "./components/NavBar/NavBar";
 import InputForm from "./components/InputForm/InputForm";
 import SearchAndSortBar from "./components/SearchAndSortBar/SearchAndSortBar";
@@ -10,10 +11,23 @@ const App = () => {
     let sessionNotes = sessionStorage.getItem("notes");
     return sessionNotes ? JSON.parse(sessionNotes) : [];
   });
+  const [filteredNotes, setFilteredNotes] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("latest");
   const [edit, setEdit] = useState(false);
   const [editNote, setEditNote] = useState({});
+
+  useEffect(() => {
+    const sortOrder = sortBy === "latest" ? "desc" : "asc";
+    const orderedNotes = _.orderBy(notes, ["id"], [sortOrder]);
+    const searchString = searchTerm.toLowerCase();
+    const searchFilteredNotes = orderedNotes.filter(
+      (note) =>
+        note.title.toLowerCase().includes(searchString) ||
+        note.message.toLowerCase().includes(searchString)
+    );
+    setFilteredNotes(searchFilteredNotes);
+  }, [searchTerm, sortBy, notes]);
 
   const handleAddNotes = (notesData) => {
     if (edit) {
@@ -30,9 +44,12 @@ const App = () => {
       setEdit(false);
       setEditNote({});
     } else {
-      setNotes((prev) => {
-        sessionStorage.setItem("notes", JSON.stringify([...prev, notesData]));
-        return [...prev, notesData];
+      setNotes((prevData) => {
+        sessionStorage.setItem(
+          "notes",
+          JSON.stringify([notesData, ...prevData])
+        );
+        return [notesData, ...prevData];
       });
     }
   };
@@ -64,10 +81,14 @@ const App = () => {
   };
 
   const displayNotes =
-    notes.length <= 0 ? (
+    filteredNotes.length <= 0 ? (
       <NoNotes />
     ) : (
-      <Notes notes={notes} onDelete={handleDelete} onEdit={handleEdit} />
+      <Notes
+        notes={filteredNotes}
+        onDelete={handleDelete}
+        onEdit={handleEdit}
+      />
     );
 
   return (
