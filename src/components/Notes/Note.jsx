@@ -12,6 +12,7 @@ const Note = (props) => {
 
   const handleEdit = (id) => {
     onEdit(id);
+    props.scrollToForm();
   };
 
   return (

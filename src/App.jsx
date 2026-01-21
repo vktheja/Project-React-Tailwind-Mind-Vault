@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import _ from "lodash";
 import NavBar from "./components/NavBar/NavBar";
 import InputForm from "./components/InputForm/InputForm";
@@ -16,6 +16,8 @@ const App = () => {
   const [sortBy, setSortBy] = useState("latest");
   const [edit, setEdit] = useState(false);
   const [editNote, setEditNote] = useState({});
+
+  const formRef = useRef(null);
 
   useEffect(() => {
     const sortOrder = sortBy === "latest" ? "desc" : "asc";
@@ -80,6 +82,12 @@ const App = () => {
     setEdit(false);
   };
 
+  const scrollToForm = () => {
+    formRef.current?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
   const displayNotes =
     filteredNotes.length <= 0 ? (
       <NoNotes />
@@ -88,18 +96,21 @@ const App = () => {
         notes={filteredNotes}
         onDelete={handleDelete}
         onEdit={handleEdit}
+        scrollToForm={scrollToForm}
       />
     );
 
   return (
     <>
       <NavBar />
-      <InputForm
-        onAddNotes={handleAddNotes}
-        onEdit={edit}
-        editNote={editNote}
-        onCancelEdit={handleCancelEdit}
-      />
+      <div className="scroll-mt-20" ref={formRef}>
+        <InputForm
+          onAddNotes={handleAddNotes}
+          onEdit={edit}
+          editNote={editNote}
+          onCancelEdit={handleCancelEdit}
+        />
+      </div>
       <SearchAndSortBar
         onSearch={handleSearch}
         onSort={handleSort}

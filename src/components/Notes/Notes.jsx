@@ -1,6 +1,6 @@
 import Note from "./Note";
 const Notes = (props) => {
-  const { notes } = props;
+  const { notes, scrollToForm } = props;
 
   const noteCard = notes.map((note) => (
     <Note
@@ -8,6 +8,7 @@ const Notes = (props) => {
       {...note}
       onDelete={props.onDelete}
       onEdit={props.onEdit}
+      scrollToForm={scrollToForm}
     />
   ));
   return (
