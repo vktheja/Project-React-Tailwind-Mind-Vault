@@ -1,18 +1,75 @@
-# React + Vite
+# 🧠 MindVault
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MindVault is a lightweight **notes application** built with React that allows users to create, edit, search, sort, and delete notes — all handled entirely on the frontend.
 
-Currently, two official plugins are available:
+The goal of MindVault is simplicity, clarity, and predictable behavior rather than over-engineering.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- ✍️ Create and edit notes
+- 🗑️ Delete notes
+- 🔍 Frontend search filtering (title & content)
+- ↕️ Frontend sorting (latest / oldest)
+- 💾 Session-based persistence using `sessionStorage`
+- ✅ Form validation for note creation & editing
+- 📱 Responsive, clean UI with smooth interactions
 
-Note: This will impact Vite dev & build performances.
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **React**
+- **Tailwind CSS**
+- **Lodash** (for safe and readable data operations)
+- **SimpleBar** (custom scroll behavior)
+
+---
+
+## 📦 Data Handling
+
+- All notes are stored in **`sessionStorage`**
+- No backend or database is used
+- Data persists only for the duration of the browser session
+
+This keeps the app fast, simple, and completely frontend-driven.
+
+---
+
+## 🔍 Search & Sorting
+
+- Notes can be searched by **title or content**
+- Sorting is handled on the frontend
+- No server-side filtering or pagination
+
+---
+
+## ✅ Form Validation
+
+- Prevents empty submissions
+- Ensures meaningful note content
+- Handles edit and create flows cleanly
+
+---
+
+## 🎯 Design Philosophy
+
+MindVault focuses on:
+
+- Readable, maintainable code
+- Minimal abstractions
+- Clear user intent
+- Avoiding unnecessary complexity
+- Using battle-tested utilities where appropriate
+
+This project prioritizes **engineering judgment** over feature bloat.
+
+---
+
+## 🚀 Getting Started
+
+```bash
+npm install
+npm start
+```
