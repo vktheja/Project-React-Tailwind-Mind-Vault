@@ -77,3 +77,7 @@ npm start
 ## 📄 License
 
 This project is licensed under the MIT License.
+
+## 🙏 Credits
+
+Notebook illustration designed by Freepik from Flaticon.
