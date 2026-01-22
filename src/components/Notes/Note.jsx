@@ -4,10 +4,53 @@ import Edit from "../../shared/icons/Edit";
 import Delete from "../../shared/icons/Delete";
 
 const Note = (props) => {
-  const { date, title, message, id, onDelete, onEdit, updated } = props;
+  const {
+    date,
+    title,
+    message,
+    id,
+    onDelete,
+    onEdit,
+    updated,
+    deleteId,
+    onDeleteWarning,
+    onCancelDelete,
+  } = props;
 
-  const handleDelete = (id) => {
-    onDelete(id);
+  let displayMessage = (
+    <div className="py-2 mr-2 text-base mds:text-sm">{message}</div>
+  );
+
+  if (deleteId === id) {
+    displayMessage = (
+      <>
+        <div className="flex flex-col items-center justify-center py-6 space-y-5">
+          <p className="text-sm font-semibold text-slate-500">
+            This action can’t be undone. Delete this note?
+          </p>
+          <div className="flex space-x-8 text-sm text-slate-500 font-semibold ">
+            <button
+              type="button"
+              className="border border-gray-200 rounded-md py-1 px-2 bg-gray-200 hover:bg-gray-400 hover:text-white cursor-pointer transition-colors duration-200"
+              onClick={onCancelDelete}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="border border-red-200 rounded-md py-1 px-2 bg-red-200  hover:bg-red-400 hover:text-white cursor-pointer transition-colors duration-200"
+              onClick={onDelete}
+            >
+              Proceed
+            </button>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  const handleDeleteWarning = (id) => {
+    onDeleteWarning(id);
   };
 
   const handleEdit = (id) => {
@@ -37,9 +80,7 @@ const Note = (props) => {
           </div>
         </div>
       </div>
-      <SimpleBar className="h-32">
-        <div className="py-2 mr-2 text-base mds:text-sm">{message}</div>
-      </SimpleBar>
+      <SimpleBar className="h-32">{displayMessage}</SimpleBar>
       <div className="border-b border-gray-200 mt-2 "></div>
       <div className="flex items-center justify-between py-2">
         <div className="flex items-center space-x-1 text-sm mds:text-xs text-gray-600">
@@ -58,7 +99,7 @@ const Note = (props) => {
           <button
             className="flex items-center space-x-1 text-sm mds:text-xs text-gray-600 hover:text-red-500 cursor-pointer"
             type="button"
-            onClick={() => handleDelete(id)}
+            onClick={() => handleDeleteWarning(id)}
           >
             <Delete className="w-4 mds:w-3 transition-colors duration-200" />
             <span>Delete</span>
