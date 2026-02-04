@@ -18,7 +18,9 @@ const Note = (props) => {
   } = props;
 
   let displayMessage = (
-    <div className="py-2 mr-2 text-base mds:text-sm">{message}</div>
+    <div className="py-2 mr-2 text-base mds:text-sm break-all overflow-hidden">
+      {message}
+    </div>
   );
 
   if (deleteId === id) {
